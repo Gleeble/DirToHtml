@@ -2,6 +2,8 @@ import os
 
 visitedDirectories = []
 directoryStructure = {}
+directory = "UPDATE ME TO THE PROPER LOCATION"
+
 
 def walk(directory):
     for root, dirs, files in os.walk(directory):
@@ -39,8 +41,6 @@ def outputHeading(root):
 def outputFiles(files):
     for name in files:
         outputFile.write("<li>" + name + "</li>")
-
-directory = "/Users/aswift/Downloads/PGMCalc"
 
 outputFile = open("directory.html", "w")
 outputFile.truncate()
