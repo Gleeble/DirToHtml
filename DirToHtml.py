@@ -2,7 +2,7 @@ import os
 
 visitedDirectories = []
 directoryStructure = {}
-directory = "UPDATE ME TO THE PROPER LOCATION"
+directory = "<CHANGE ME TO ROOT DIRECTORY>"
 
 
 def walk(directory):
@@ -11,16 +11,15 @@ def walk(directory):
         directoryStructure[root]["dirs"] = dirs
         directoryStructure[root]["files"] = files
 
-def buildDirectory(directory):
+def buildDirectory(directory, dirName="Root"):
     listing = directoryStructure[directory]
-    print(directory)
     dirStr = startSection(directory)
-    outputHeading(dirStr)
+    outputHeading(dirStr, dirName)
     outputFile.write('<div id="in' + dirStr + '" class="accordion-body collapse">')
     outputFile.write('<div class="accordion-inner">')
     outputFile.write("<ul>")
     for d in listing["dirs"]:
-        buildDirectory(os.path.join(directory, d))
+        buildDirectory(os.path.join(directory, d), d)
     outputFiles(listing["files"])
     outputFile.write("</ul></div></div>")
     outputFile.write("</div></div>")
@@ -31,10 +30,10 @@ def startSection(root):
 
     return rootStr
 
-def outputHeading(root):
+def outputHeading(root, dirName):
     outputFile.write("<div class='accordion-heading'>")
     outputFile.write("<a class='accordion-toggle' data-toggle='collapse' data-parent='#out" + root + "' href='#in" + root + "'>")
-    outputFile.write(root)
+    outputFile.write(dirName)
     outputFile.write("</a>")
     outputFile.write("</div>")
 
