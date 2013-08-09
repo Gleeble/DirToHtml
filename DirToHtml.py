@@ -1,4 +1,4 @@
-import os
+import os, re
 
 visitedDirectories = []
 directoryStructure = {}
@@ -13,7 +13,7 @@ def walk(directory):
 
 def buildDirectory(directory, dirName="Root"):
     listing = directoryStructure[directory]
-    dirStr = startSection(directory)
+    dirStr = startSection(dirName)
     outputHeading(dirStr, dirName)
     outputFile.write('<div id="in' + dirStr + '" class="accordion-body collapse">')
     outputFile.write('<div class="accordion-inner">')
@@ -25,7 +25,7 @@ def buildDirectory(directory, dirName="Root"):
     outputFile.write("</div></div>")
 
 def startSection(root):
-    rootStr = root.replace(os.sep, "_").replace(".", "_")
+    rootStr = re.sub(r'[^A-Za-z0-9_]', '_', root)
     outputFile.write("<div class='accordion' id='out" + rootStr + "'><div class='accordion-group'>")
 
     return rootStr
